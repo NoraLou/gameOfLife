@@ -66,15 +66,30 @@ var Game = {
   },
 
 
-  display:function(arr){
-    for(var x = 0; x < arr.length; x++) {
-                for(var y = 0; y < arr[x].length; y++) {
-                        console.log("******************")
-                        console.log(arr[x][y])
-                        Game.drawCell(x,y,arr[x][y]);
+  display:function(grid){
+    for(var x = 0; x < grid.length; x++) {
+                for(var y = 0; y < grid[x].length; y++) {
+                        // console.log("******************")
+                        // console.log(arr[x][y])
+                        Game.drawCell(x,y,grid[x][y])
                 }
         }
   },
+
+
+  nextGen: function(grid){
+    var newGen = makeGrid();
+    for(var x = 0; x < grid.length; x++){
+      for(var y = 0; y<grid[x].length; y++){
+        var square = grid[x][y];
+        var aliveCount = "";
+      }
+
+    }
+
+  },
+
+
 
 
 
@@ -84,59 +99,11 @@ var Game = {
 
 
 
-// var makeGrid = function(gridSize) {
-//         var grid = [];
-//         for(var i = 0; i<gridSize; i++) {
-//                 var row = [];
-//                 for(var j = 0; j<gridSize; j++) {
-//                         row.push(0);
-//                 }
-//                 grid.push(row);
-//         }
-//         return grid;
-// }
-
-
 Game.init();
 
 
 
 
-// console.log(makeGrid(5));
-
-
-  // makeCells: function(){
-  //   //need a way to draw our cells
-  // },
-
-  // populateCells: function(){
-  //   // set up game.
-  // },
-
-
-
-// console.log(Game);
-
-
-// console.log(grid);
-
-// Game.makeMatrix(20);
-
-
-//HELPER FUNCTIONS
-
-// var renderGrid = function(){
-
-//      //draw out our grid
-//   }
-
-// var basicSetup
-
-// var drawCell(x,y,alive){
-//   context.beginPath();
-//   context.rect
-
-// }
 
 
 
