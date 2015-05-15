@@ -30,6 +30,10 @@ var Game = {
     Game.display(Game.grid);
 
 
+    console.log("**********************")
+    console.log(Game.grid[30][5])
+
+
 
 
   },//init func
@@ -47,12 +51,14 @@ var Game = {
   },
 
   setup: function(){
-   console.log (Game.grid[30][5] =1)
-   console.log (Game.grid[30][6] =1)
-   console.log (Game.grid[20][4]=1)
-   console.log (Game.grid[20][3]=1)
-   console.log (Game.grid[20][1]=1)
-   console.log (Game.grid[30][7]=1)
+    Game.grid[30][5]=1
+    Game.grid[20][5]=1
+    Game.grid[30][6]=1
+    Game.grid[20][5]=1
+    Game.grid[20][4]=1
+    Game.grid[20][3]=1
+    Game.grid[20][1]=1
+    Game.grid[30][7]=1
   },
 
 
@@ -77,12 +83,32 @@ var Game = {
   },
 
 
+  aliveCount:function(grid, x, y){
+    //check for corners
+    //greater than zero, within bounds of grid
+    if(x > 0 && y > 0 && x < gridSize -1 && y < gridSize -1){
+      var numAlive = arr[x-1][y-1]+
+                     arr[x][y-1]+
+                     arr[x+1][y-1]+
+                     arr[x-1][y]+
+                     arr[x+1][y]+
+                     arr[x-1][y+1]+
+                     arr[x][y+1]+
+                     arr[x+1][y+1];
+       return numAlive;
+
+    }else{
+      return 0;
+    }
+  },
+
+
   nextGen: function(grid){
     var newGen = makeGrid();
     for(var x = 0; x < grid.length; x++){
       for(var y = 0; y<grid[x].length; y++){
         var square = grid[x][y];
-        var aliveCount = "";
+        var aliveCount = aliveCount(grid, x, y)
       }
 
     }
@@ -96,10 +122,15 @@ var Game = {
 
 }//Game
 
-
-
-
 Game.init();
+
+console.log(Game)
+
+console.log("*****************************")
+
+console.log(Game.aliveCount(Game.grid[30][6]));
+
+
 
 
 
