@@ -16,8 +16,6 @@ var Game = {
 
 
   init: function(){
-    // set up our game display, variables, use helper funct
-    console.log(canvas)
 
     canvas.width = Game.pixelSize * Game.gridSize;
     canvas.height = Game.pixelSize * Game.gridSize;
@@ -29,18 +27,10 @@ var Game = {
 
     Game.display(Game.grid);
 
-
-
-
-    // console.log("**********************")
-    // // console.log(Game.grid[30][5])
-
-    // console.log(Game.nextGen(Game.grid));
-
-
-
+    // Game.loop();
 
   },//init func
+
 
   makeGrid: function(gridSize){
       var grid = [];
@@ -55,25 +45,43 @@ var Game = {
   },
 
   setup: function(){
-    Game.grid[30][5]=1
-    Game.grid[20][5]=1
-    Game.grid[30][6]=1
-    Game.grid[22][7] = 1
-    Game.grid[21][6]=1
-    Game.grid[20][5]=1
-    Game.grid[20][4]=1
-    Game.grid[20][3]=1
-    Game.grid[20][1]=1
-    Game.grid[30][7]=1
+
+    // make some a patterns
+    //Blinker
+    Game.grid[50][5]=1
+    Game.grid[51][5]=1
+    Game.grid[52][5]=1
+
+    Game.grid[70][70]=1
+    Game.grid[71][70]=1
+    Game.grid[72][70]=1
+
+
+    Game.grid[10][5]=1
+    Game.grid[10][6]=1
+    Game.grid[10][7]=1
+
+    Game.grid[50][50]=1
+    Game.grid[50][51]=1
+    Game.grid[50][52]=1
+
+
+    Game.grid[21][7]=1
+    Game.grid[21][8]=1
+    Game.grid[22][9]=1
+
+    Game.grid[21][7]=1
+    Game.grid[21][8]=1
+    Game.grid[22][9]=1
+
+
   },
 
 
   drawCell: function(x,y,alive){
         context.beginPath();
         context.rect(x*Game.pixelSize, y*Game.pixelSize, Game.pixelSize, Game.pixelSize);
-        // console.log("*********************************")
-        // console.log("hello"+(this.x, this.y, this.alive))
-        context.fillStyle = alive ? 'green' : 'grey';
+        context.fillStyle = alive ? 'red' : 'lightgrey';
         context.fill()
   },
 
@@ -89,14 +97,13 @@ var Game = {
   },
 
 
-  aliveCount:function(gridSize, x, y){
-    //check for corners
-    //greater than zero, within bounds of grid
-    if(x > 0 && y > 0 && x < gridSize-1 && y < gridSize -1){
+  aliveCount:function(arr, x, y){
+    if(x > 0 && y > 0 && x < Game.gridSize-1 && y < Game.gridSize -1){
       var numAlive = arr[x-1][y-1]+
                      arr[x][y-1]+
                      arr[x+1][y-1]+
                      arr[x-1][y]+
+
                      arr[x+1][y]+
                      arr[x-1][y+1]+
                      arr[x][y+1]+
@@ -111,25 +118,20 @@ var Game = {
 
   nextGen: function(grid){
     var newGen = Game.makeGrid(Game.gridSize);
-    console.log("NEW GEN",newGen);
     for(var x = 0; x < grid.length; x++){
       for(var y = 0; y<grid[x].length; y++){
         var square = grid[x][y];
-        console.log("SQUARE",square);
-        var aliveCount = Game.aliveCount(grid, x, y)
-        console.log("AM I HERE??")
+        var aliveCount = Game.aliveCount(Game.grid, x, y)
         if(square == 1){
             if( aliveCount < 2 ){
                 newGen[x][y] = 0;
             }else if(aliveCount == 2 || aliveCount == 3){
-                newGen[x][y] = 0;
+                newGen[x][y] = 1;
             }else if(aliveCount >3){
                 newGen[x][y] = 0;
             }
-        }else{
-          if(square == 0 && aliveCount == 3 ){
+        }else if(square == 0 && aliveCount == 3 ){
             newGen[x][y] = 1;
-          }
         }
       }
 
@@ -138,16 +140,38 @@ var Game = {
   },
 
 
+  loop : function(){
+
+    setInterval(function(){
+
+      var next = Game.nextGen(Game.grid);
+
+      console.log(next);
+
+      Game.display(next);
+
+      Game.grid = next;
+
+    },300)
+
+
+
+  }
+
+
+
 
 }//Game
 
 Game.init();
 
-console.log(Game)
+Game.loop();
 
-console.log("*****************************")
+// console.log(Game)
 
-console.log(Game.nextGen(Game.grid));
+// console.log("*****************************")
+
+// console.log(Game.nextGen(Game.grid));
 
 
 
