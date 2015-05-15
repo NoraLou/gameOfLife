@@ -10,7 +10,7 @@ var context = canvas.getContext('2d');
 var Game = {
 
   pixelSize :4,
-  gridSize :10,
+  gridSize: 100,
   lifeCycle: undefined,
   grid : undefined,
 
@@ -25,9 +25,9 @@ var Game = {
     console.log("GRID SIZE", Game.gridSize);
 
 
-    Game.grid = makeGrid(Game.gridSize);
+    Game.grid = Game.makeGrid(Game.gridSize);
 
-    console.log("GRID!!",Game.grid)
+    console.log(Game.grid)
 
     // console.log(Game.makeMatrix(Game.gridSize));
     // console.log(context)
@@ -36,20 +36,13 @@ var Game = {
     // context.fillStyle = 'yellow';
     // context.fill();
 
+    console.log( "GRID 20", Game.grid[20][20])
 
 
   },//init func
-}//Game
 
-//HELPER FUNCTIONS
-
-var renderGrid = function(){
-     //draw out our grid
-  }
-
-
-function makeGrid(gridSize) {
-        var grid = [];
+  makeGrid: function(gridSize){
+      var grid = [];
         for(var i = 0; i<gridSize; i++) {
                 var row = [];
                 for(var j = 0; j<gridSize; j++) {
@@ -58,9 +51,37 @@ function makeGrid(gridSize) {
                 grid.push(row);
         }
         return grid;
-}
+  },
+
+  setup: function(){
+    Game.grid[30][5] =1
+    Game.grid[30][6] =1
+    Game.grid[20][4]=1
+    Game.grid[20][3]=1
+    Game.grid[20][1]=1
+    Game.grid[30][7]=1
+  }
 
 
+}//Game
+
+
+
+
+// var makeGrid = function(gridSize) {
+//         var grid = [];
+//         for(var i = 0; i<gridSize; i++) {
+//                 var row = [];
+//                 for(var j = 0; j<gridSize; j++) {
+//                         row.push(0);
+//                 }
+//                 grid.push(row);
+//         }
+//         return grid;
+// }
+
+
+Game.init();
 
 
 
@@ -80,14 +101,26 @@ function makeGrid(gridSize) {
 
 // console.log(Game);
 
-Game.init();
 
 // console.log(grid);
 
 // Game.makeMatrix(20);
 
 
+//HELPER FUNCTIONS
 
+// var renderGrid = function(){
+
+//      //draw out our grid
+//   }
+
+// var basicSetup
+
+// var drawCell(x,y,alive){
+//   context.beginPath();
+//   context.rect
+
+// }
 
 
 
