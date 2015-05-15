@@ -30,8 +30,12 @@ var Game = {
     Game.display(Game.grid);
 
 
-    console.log("**********************")
-    console.log(Game.grid[30][5])
+
+
+    // console.log("**********************")
+    // // console.log(Game.grid[30][5])
+
+    // console.log(Game.nextGen(Game.grid));
 
 
 
@@ -54,6 +58,8 @@ var Game = {
     Game.grid[30][5]=1
     Game.grid[20][5]=1
     Game.grid[30][6]=1
+    Game.grid[22][7] = 1
+    Game.grid[21][6]=1
     Game.grid[20][5]=1
     Game.grid[20][4]=1
     Game.grid[20][3]=1
@@ -83,10 +89,10 @@ var Game = {
   },
 
 
-  aliveCount:function(grid, x, y){
+  aliveCount:function(gridSize, x, y){
     //check for corners
     //greater than zero, within bounds of grid
-    if(x > 0 && y > 0 && x < gridSize -1 && y < gridSize -1){
+    if(x > 0 && y > 0 && x < gridSize-1 && y < gridSize -1){
       var numAlive = arr[x-1][y-1]+
                      arr[x][y-1]+
                      arr[x+1][y-1]+
@@ -104,19 +110,32 @@ var Game = {
 
 
   nextGen: function(grid){
-    var newGen = makeGrid();
+    var newGen = Game.makeGrid(Game.gridSize);
+    console.log("NEW GEN",newGen);
     for(var x = 0; x < grid.length; x++){
       for(var y = 0; y<grid[x].length; y++){
         var square = grid[x][y];
-        var aliveCount = aliveCount(grid, x, y)
+        console.log("SQUARE",square);
+        var aliveCount = Game.aliveCount(grid, x, y)
+        console.log("AM I HERE??")
+        if(square == 1){
+            if( aliveCount < 2 ){
+                newGen[x][y] = 0;
+            }else if(aliveCount == 2 || aliveCount == 3){
+                newGen[x][y] = 0;
+            }else if(aliveCount >3){
+                newGen[x][y] = 0;
+            }
+        }else{
+          if(square == 0 && aliveCount == 3 ){
+            newGen[x][y] = 1;
+          }
+        }
       }
 
     }
-
+    return newGen;
   },
-
-
-
 
 
 
@@ -128,7 +147,7 @@ console.log(Game)
 
 console.log("*****************************")
 
-console.log(Game.aliveCount(Game.grid[30][6]));
+console.log(Game.nextGen(Game.grid));
 
 
 
