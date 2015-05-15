@@ -22,21 +22,14 @@ var Game = {
     canvas.width = Game.pixelSize * Game.gridSize;
     canvas.height = Game.pixelSize * Game.gridSize;
 
-    console.log("GRID SIZE", Game.gridSize);
-
 
     Game.grid = Game.makeGrid(Game.gridSize);
 
-    console.log(Game.grid)
+    Game.setup();
 
-    // console.log(Game.makeMatrix(Game.gridSize));
-    // console.log(context)
-    // context.beginPath();
-    // context.rect(188, 50, 200, 100);
-    // context.fillStyle = 'yellow';
-    // context.fill();
+    Game.display(Game.grid);
 
-    console.log( "GRID 20", Game.grid[20][20])
+
 
 
   },//init func
@@ -54,13 +47,36 @@ var Game = {
   },
 
   setup: function(){
-    Game.grid[30][5] =1
-    Game.grid[30][6] =1
-    Game.grid[20][4]=1
-    Game.grid[20][3]=1
-    Game.grid[20][1]=1
-    Game.grid[30][7]=1
-  }
+   console.log (Game.grid[30][5] =1)
+   console.log (Game.grid[30][6] =1)
+   console.log (Game.grid[20][4]=1)
+   console.log (Game.grid[20][3]=1)
+   console.log (Game.grid[20][1]=1)
+   console.log (Game.grid[30][7]=1)
+  },
+
+
+  drawCell: function(x,y,alive){
+        context.beginPath();
+        context.rect(x*Game.pixelSize, y*Game.pixelSize, Game.pixelSize, Game.pixelSize);
+        // console.log("*********************************")
+        // console.log("hello"+(this.x, this.y, this.alive))
+        context.fillStyle = alive ? 'green' : 'grey';
+        context.fill()
+  },
+
+
+  display:function(arr){
+    for(var x = 0; x < arr.length; x++) {
+                for(var y = 0; y < arr[x].length; y++) {
+                        console.log("******************")
+                        console.log(arr[x][y])
+                        Game.drawCell(x,y,arr[x][y]);
+                }
+        }
+  },
+
+
 
 
 }//Game
