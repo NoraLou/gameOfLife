@@ -11,7 +11,6 @@ var Game = {
 
   pixelSize :4,
   gridSize: 100,
-  lifeCycle: undefined,
   grid : undefined,
 
 
@@ -20,14 +19,13 @@ var Game = {
     canvas.width = Game.pixelSize * Game.gridSize;
     canvas.height = Game.pixelSize * Game.gridSize;
 
-
     Game.grid = Game.makeGrid(Game.gridSize);
 
-    Game.setup();
+    Game.randomize();
 
-    Game.display(Game.grid);
+    Game.display();
 
-    // Game.loop();
+    Game.loop();
 
   },//init func
 
@@ -44,38 +42,6 @@ var Game = {
         return grid;
   },
 
-  setup: function(){
-
-    // make some a patterns
-    //Blinker
-    Game.grid[50][5]=1
-    Game.grid[51][5]=1
-    Game.grid[52][5]=1
-
-    Game.grid[70][70]=1
-    Game.grid[71][70]=1
-    Game.grid[72][70]=1
-
-
-    Game.grid[10][5]=1
-    Game.grid[10][6]=1
-    Game.grid[10][7]=1
-
-    Game.grid[50][50]=1
-    Game.grid[50][51]=1
-    Game.grid[50][52]=1
-
-
-    Game.grid[21][7]=1
-    Game.grid[21][8]=1
-    Game.grid[22][9]=1
-
-    Game.grid[21][7]=1
-    Game.grid[21][8]=1
-    Game.grid[22][9]=1
-
-
-  },
 
 
   drawCell: function(x,y,alive){
@@ -86,12 +52,10 @@ var Game = {
   },
 
 
-  display:function(grid){
-    for(var x = 0; x < grid.length; x++) {
-                for(var y = 0; y < grid[x].length; y++) {
-                        // console.log("******************")
-                        // console.log(arr[x][y])
-                        Game.drawCell(x,y,grid[x][y])
+  display:function(){
+    for(var x = 0; x < Game.grid.length; x++) {
+                for(var y = 0; y < Game.grid[x].length; y++) {
+                        Game.drawCell(x,y,Game.grid[x][y])
                 }
         }
   },
@@ -139,6 +103,19 @@ var Game = {
     return newGen;
   },
 
+  randomize: function(){
+    for(var x = 0; x < Game.grid.length; x++) {
+                for(y = 0; y < Game.grid[x].length; y++) {
+                        if (Math.random() > 0.5){
+                                Game.grid[x][y]=1;
+
+                        }else{
+                          Game.grid[x][y]= 0;
+                        }
+                }
+        }
+  },
+
 
   loop : function(){
 
@@ -153,25 +130,12 @@ var Game = {
       Game.grid = next;
 
     },300)
-
-
-
   }
 
-
-
-
-}//Game
+}
 
 Game.init();
 
-Game.loop();
-
-// console.log(Game)
-
-// console.log("*****************************")
-
-// console.log(Game.nextGen(Game.grid));
 
 
 
